@@ -4,9 +4,6 @@
  * Due: 11/3/2025
  */
 
- 
-
-
 //Example numbers:
 //4388576018410707 (valid)
 //4388576018402626 (invalid)
@@ -15,28 +12,19 @@ import java.util.Scanner;
 public class M1A2632_MarkKapapa {
 
     /** Return true if the card number is valid */
-    
     public static boolean isValid(long number) {
         int sum = sumOfDoubleEvenPlace(number) + sumOfOddPlace(number);
         
-        //4 for Visa cards
-        //5 for Master cards
-        //37 for American Express cards
-        //6 for Discover cards
         if (prefixMatched(number, 4) | prefixMatched(number, 5) | prefixMatched(number, 37) | prefixMatched(number, 6)) {
-            //System.out.println("cool!");
         } else {
             return false;
         }
-
         getSize(number);
 
         if (sum % 10 != 0) {
             return false;
         } 
-        
         return true;
-
     }
 
     /** Get the result from Step 2 */
@@ -49,20 +37,12 @@ public class M1A2632_MarkKapapa {
             int digit = Character.getNumericValue(digitChar);
             digit *= 2;
             sum += getDigit(digit);
-
             // debugging stuff:
             //System.out.print(digitChar + " * 2 = ");
             //System.out.print(digit + " --> ");
             //System.out.println(getDigit(digit));
         }
-
         return sum;
-
-        //Pseudocode:
-        //Pull out every second number starting from end of number
-        //multiply individual number by two
-        //add getDigit(number) to sum
-        //return sum
     }
 
     /** Return this number if it is a single digit, otherwise,
@@ -73,13 +53,6 @@ public class M1A2632_MarkKapapa {
         } else {
             return number / 10 + number % 10;
         }
-        //Psuedocode
-        //if number has one digit,
-            //return it
-        //else if,
-            //get value of first digit
-            //get value of second digit
-            //return [them added together]
     }
 
     /** Return sum of odd-place digits in number */
@@ -91,20 +64,12 @@ public class M1A2632_MarkKapapa {
             char digitChar = numberString.charAt(i); 
             int digit = Character.getNumericValue(digitChar);
             sum += getDigit(digit);
-
             // debugging stuff:
             //System.out.print(digitChar + " * 2 = ");
             //System.out.print(digit + " --> ");
             //System.out.println(getDigit(digit));
         }
-
         return sum;
-
-        //Pull out every other number starting from last digit of number
-
-        //add number to sum
-        
-        //return sum
     }
 
     /** Return true if the number d is a prefix for number */
@@ -120,15 +85,12 @@ public class M1A2632_MarkKapapa {
     public static int getSize(long d) {
         String numberString = String.valueOf(d);
         return numberString.length();
-        //find length of number
-        //return length (int)
     }
 
     /** Return the first k number of digits from number. If the
      * number of digits in number is less than k, return number. */
     public static long getPrefix(long number, int k) {
-        //get length of k
-        
+
         String numberString = String.valueOf(number);
         String prefix = "";
         
@@ -138,8 +100,6 @@ public class M1A2632_MarkKapapa {
         }
         //System.out.println(prefix);
         return Long.parseLong(prefix);
-        //cut of the rest of the long number
-        //return the first k length digits
     }
     
     public static void main(String[] args) {
