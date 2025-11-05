@@ -1,77 +1,164 @@
-import java.math.BigInteger;
+/**Module 1 Programming Assignment (2)
+ * Mark Kapapa
+ * 
+ * Due: 11/3/2025
+ */
 
+ 
+
+
+//Example numbers:
+//4388576018410707 (valid)
+//4388576018402626 (invalid)
+
+import java.util.Scanner;
 public class M1A2632_MarkKapapa {
-    /**
-     * 1. Double every second digit from right to left. 
-       If doubling of a digit results in a two-digit number, add up the two digits to get a single-digit number.
-       Now add all single-digit numbers from Step 1.
-
-     * 2. Add all digits in the odd places from right to left in the card number.
-
-     * 3. Sum the results from Step 2 and Step 3.
-
-     * 4. If the result from Step 4 is divisible by 10, the card number is valid; otherwise, it is invalid. For example, the number 4388576018402626 is invalid, but the number 4388576018410707 is valid.
-
-     * 5. Write a program that prompts the user to enter a credit card number as a long integer. Display whether the number is valid or invalid. Design your program to use the following methods:
-
-    **/
-
-
-
 
     /** Return true if the card number is valid */
+    
     public static boolean isValid(long number) {
+        int sum = sumOfDoubleEvenPlace(number) + sumOfOddPlace(number);
+        
         //4 for Visa cards
         //5 for Master cards
         //37 for American Express cards
         //6 for Discover cards
-        switch (String.valueOf(number).charAt(0)) {
-            case 4:
-                System.out.println("Type: Visa");
-            break;
-            case 5:
-                System.out.println("Type: Mastercard");
-            break;
-            case 6:
-                System.out.println("Type: Discover card");
-            break;
-            case 3:
-                if (Integer.valueOf(String.valueOf(number).charAt(1)) == 7)
-                    System.out.println("Type: American Express");
-            break;
+        if (prefixMatched(number, 4) | prefixMatched(number, 5) | prefixMatched(number, 37) | prefixMatched(number, 6)) {
+            //System.out.println("cool!");
+        } else {
+            return false;
         }
 
+        getSize(number);
+
+        if (sum % 10 != 0) {
+            return false;
+        } 
+        
+        return true;
+
+    }
+
+    /** Get the result from Step 2 */
+    public static int sumOfDoubleEvenPlace(long number) {
+        String numberString = String.valueOf(number);
         int sum = 0;
 
-        for (int i = String.valueOf(number).length() - 2; i > 0; i -= 2) {
-            if (Integer.valueOf(String.valueOf(number).charAt(i)) * 2 >= 10)
-                sum += Integer.valueOf(String.valueOf(number).charAt(i))*2 / 10 + Integer.valueOf(String.valueOf(number).charAt(i))*2 % 10;
-            else
-                sum += Integer.valueOf(String.valueOf(number).charAt(i))*2;
+        for (int i = getSize(number) - 2; i >= 0; i -= 2) {
+            char digitChar = numberString.charAt(i); 
+            int digit = Character.getNumericValue(digitChar);
+            digit *= 2;
+            sum += getDigit(digit);
+
+            // debugging stuff:
+            //System.out.print(digitChar + " * 2 = ");
+            //System.out.print(digit + " --> ");
+            //System.out.println(getDigit(digit));
         }
 
-        int sum2 = 0;
-        for (int i = String.valueOf(number).length() - 1; i > 0; i -= 2) {
-            sum2 += Integer.valueOf(String.valueOf(number).charAt(i));
+        return sum;
+
+        //Pseudocode:
+        //Pull out every second number starting from end of number
+        //multiply individual number by two
+        //add getDigit(number) to sum
+        //return sum
+    }
+
+    /** Return this number if it is a single digit, otherwise,
+     * return the sum of the two digits */
+    public static int getDigit(int number) {
+        if (String.valueOf(number).length() == 1) {
+            return number;
+        } else {
+            return number / 10 + number % 10;
+        }
+        //Psuedocode
+        //if number has one digit,
+            //return it
+        //else if,
+            //get value of first digit
+            //get value of second digit
+            //return [them added together]
+    }
+
+    /** Return sum of odd-place digits in number */
+    public static int sumOfOddPlace(long number) {
+        String numberString = String.valueOf(number);
+        int sum = 0;
+
+        for (int i = getSize(number) - 1; i > 0; i -= 2) {
+            char digitChar = numberString.charAt(i); 
+            int digit = Character.getNumericValue(digitChar);
+            sum += getDigit(digit);
+
+            // debugging stuff:
+            //System.out.print(digitChar + " * 2 = ");
+            //System.out.print(digit + " --> ");
+            //System.out.println(getDigit(digit));
         }
 
-        int finalSum = sum2 + sum;
+        return sum;
+
+        //Pull out every other number starting from last digit of number
+
+        //add number to sum
         
-        
-        if (finalSum % 10 == 0)
+        //return sum
+    }
+
+    /** Return true if the number d is a prefix for number */
+    public static boolean prefixMatched(long number, int d) {        
+        if (d == getPrefix(number, d)) {
             return true;
-        else
+        } else {
             return false;
+        }
+    }
+
+    /** Return the number of digits in d */
+    public static int getSize(long d) {
+        String numberString = String.valueOf(d);
+        return numberString.length();
+        //find length of number
+        //return length (int)
+    }
+
+    /** Return the first k number of digits from number. If the
+     * number of digits in number is less than k, return number. */
+    public static long getPrefix(long number, int k) {
+        //get length of k
+        
+        String numberString = String.valueOf(number);
+        String prefix = "";
+        
+        for (int i = 0; i < String.valueOf(k).length(); i++) {
+            char digitChar = numberString.charAt(i);
+            prefix += digitChar;
+        }
+        //System.out.println(prefix);
+        return Long.parseLong(prefix);
+        //cut of the rest of the long number
+        //return the first k length digits
     }
     
     public static void main(String[] args) {
-        // Create a Scanner object to read user input
-        //Scanner input = new Scanner(System.in);
-        //System.out.print("Enter a number: ");
+        Scanner input = new Scanner(System.in);
 
-        //isValid(input.nextLong());
+        System.out.println("----------------------------------------------\nTrustworthy Credit Card Number Validator*\n----------------------------------------------\n*We never sell your info.");
+        System.out.print("\nEnter credit card number: ");
 
-        //input.close();
-        //System.out.println(isValid(4388576018402626));
+        long numba = input.nextLong();
+        boolean result = isValid(numba);
+        if (result == true) {
+            System.out.println("Nice! The number " + numba + " is a valid credit card number.\n");
+        } else {
+            System.out.println(numba + " is an invalid card number :(\n");
+        }
+
+        //4388576018410707 (valid)
+        //4388576018402626 (invalid)
+        input.close();
+        
     }
 }
