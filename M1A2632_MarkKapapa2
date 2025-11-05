@@ -1,0 +1,90 @@
+
+public class M1A2632_MarkKapapa2 {
+    /** Return true if the card number is valid */
+    
+    public static boolean isValid(long number) {
+        //sum = sumOfDoubleEvenPlace(number) + sumOfOddPlace(number)
+        //if (sum % 10 == 0)
+            //return true
+    }
+
+    /** Get the result from Step 2 */
+    public static int sumOfDoubleEvenPlace(long number) {
+        //Pull out every second number starting from end of number
+
+        //multiply individual number by two
+        
+        //add getDigit(number) to sum
+        
+        //return sum
+    }
+
+    /** Return this number if it is a single digit, otherwise,
+     * return the sum of the two digits */
+    public static int getDigit(int number) {
+        if (String.valueOf(number).length() == 1) {
+            return number;
+        } else {
+            return number / 10 + number % 10;
+        }
+        //if number has one digit,
+            //return it
+        //else if,
+            //get value of first digit
+            //get value of second digit
+            //return [them added together]
+    }
+
+    /** Return sum of odd-place digits in number */
+    public static int sumOfOddPlace(long number) {
+        //Pull out every other number starting from last digit of number
+
+        //add number to sum
+        
+        //return sum
+    }
+
+    /** Return true if the number d is a prefix for number */
+    public static boolean prefixMatched(long number, int d) {
+        //4 for Visa cards
+        //5 for Master cards
+        //37 for American Express cards
+        //6 for Discover cards
+        
+        //if d == getPrefix(number, d)
+            //return true
+    }
+
+    /** Return the number of digits in d */
+    public static int getSize(long d) {
+        //find length of number
+        //return length (int)
+    }
+
+    /** Return the first k number of digits from number. If the
+     * number of digits in number is less than k, return number. */
+    public static long getPrefix(long number, int k) {
+        //get length of k
+
+        //cut of the rest of the long number
+        //return the first k length digits
+    }
+    
+    public static void main(String[] args) {
+        //Scanner input = new Scanner(System.in);
+        //System.out.println(isValid(input.nextLong()));
+
+        //4388576018410707 (valid)
+        //4388576018402626 (invalid)
+        //System.out.println(input.nextLong());
+        //input.close();
+        System.out.println(getDigit(10));
+        
+        System.out.println(getDigit(3));
+        
+        System.out.println(getDigit(39));
+        
+        System.out.println(getDigit(9));
+
+    }
+}
