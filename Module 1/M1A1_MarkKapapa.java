@@ -1,4 +1,4 @@
-public class M1A169_MarkKapapa {
+public class M1A1_MarkKapapa {
     public static double footToMeter(double foot) {
         double meter = 0.305 * foot;
         return meter;

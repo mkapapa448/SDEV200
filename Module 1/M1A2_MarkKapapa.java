@@ -1,15 +1,16 @@
-/**Module 1 Programming Assignment (2)
+/** 
+ * Module 1 Assignment 2
+ * SDEV 200 - Software Development with Java
  * Mark Kapapa
- * 
- * Due: 11/3/2025
- */
+ * Due: 11/3/2025 - Completed 11/4/2025
+*/
 
 //Example numbers:
 //4388576018410707 (valid)
 //4388576018402626 (invalid)
 
 import java.util.Scanner;
-public class M1A2632_MarkKapapa {
+public class M1A2_MarkKapapa {
 
     /** Return true if the card number is valid */
     public static boolean isValid(long number) {
